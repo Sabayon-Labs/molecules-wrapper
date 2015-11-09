@@ -15,6 +15,8 @@ elif [ "${1}" = "fluxbox" ]; then
 	echo "FLUXBOX build!"
 elif [ "${1}" = "gnome" ]; then
 	echo "GNOME build!"
+equo rm --nodeps sabayon-artwork-gnome --force-system
+equo i spike-artwork-gnome
 elif [ "${1}" = "xfceforensic" ]; then
 	echo "xfceforensic build!"
 elif [ "${1}" = "kde" ]; then
@@ -23,13 +25,13 @@ elif [ "${1}" = "awesome" ]; then
 	echo "AWESOME build!"
 fi
 
-
+sd_disable cdeject # temporary fix to get 3.19 + overlayfs working
 ######END######
 
 rm -rfv /etc/entropy/packages/license.accept
 #chsh -s /bin/zsh sabayonuser
 # genkernel --plymouth-theme=spike  --luks initramfs
-
+#equo rm spike-artwork-core --nodeps
 echo '
 # useradd defaults file
 GROUP=100
@@ -41,3 +43,5 @@ SKEL=/etc/skel
 ' > /etc/default/useradd
 #set default plymouth theme
 #plymouth-set-default-theme spike
+
+equo rm --nodeps sabayon-artwork-core
